@@ -1,4 +1,4 @@
-const API_KEY = "VUegAm4NSJv5fU8r7UNREZLJMBwbfVWj"
+const API_KEY = "jTyAB457Cjn10tR0Aoa93IAxjhRf8jeq"
 const API_HOST = "https://dataservice.accuweather.com/"
 const API_VERSION = "v1"
 

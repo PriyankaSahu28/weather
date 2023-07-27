@@ -1,7 +1,8 @@
-import React from "react"
+import React,{useState} from "react"
 import {observer, inject} from "mobx-react"
 import {makeStyles, useTheme} from "@material-ui/core/styles"
 import {router, views} from "../models/RouteStore"
+import SignInOutPage from "../components/SignInOutPage"
 import {
   AppBar,
   Typography,
@@ -13,16 +14,26 @@ import {
   Grid,
   Divider,
   ButtonGroup,
-  Toolbar
+  Toolbar,
+  TextField
 } from "@material-ui/core"
 import Brightness4Icon from "@material-ui/icons/Brightness4"
 import Brightness7Icon from "@material-ui/icons/Brightness7"
 import HomeIcon from "@material-ui/icons/Home"
 import FavoriteIcon from "@material-ui/icons/Favorite"
+import axios from "axios"
 
 const Header = inject("WeatherStore")(
   observer(({WeatherStore}) => {
     const theme = useTheme()
+    // const [authenticated, setAuthenticated] = useState(false);
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    const [showSignInOutPage, setShowSignInOutPage] = useState(false);
+    const handleSignInOut = async () => {
+      setShowSignInOutPage(!showSignInOutPage);
+    };
+
 
     const useStyles = makeStyles(theme => ({
       root: {
@@ -71,6 +82,28 @@ const Header = inject("WeatherStore")(
       theme.palette.type = theme.palette.type === "dark" ? "light" : "dark"
       WeatherStore.toggleTheme(theme.palette.type)
     }
+
+    // const handleSignInOut = async () => {
+    //   try {
+    //     if (authenticated) {
+    //       // Perform sign out
+    //       await axios.get("/signout");
+    //       setAuthenticated(false);
+    //     } else {
+    //       // Perform sign in
+    //       const response = await axios.post("http://localhost:3000/signin",{
+    //         username: "priyanka28", // Replace with actual username
+    //         password: "1234", // Replace with actual password
+    //       });
+
+    //       console.log(response.data); // You can handle the response as needed
+    //       setAuthenticated(true);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //   }
+    // };
+
     const classes = useStyles()
     return (
       <AppBar position="static">
@@ -134,6 +167,15 @@ const Header = inject("WeatherStore")(
               </IconButton>
             </Tooltip>
           </Box>
+          <ButtonGroup
+              variant="contained"
+              color="primary"
+              aria-label="contained primary button group">
+          <Button variant="outline-light" onClick={handleSignInOut}>
+            Sign In/Sign Out
+          </Button>
+          </ButtonGroup>
+          {showSignInOutPage && <SignInOutPage />}
         </Toolbar>
       </AppBar>
     )
