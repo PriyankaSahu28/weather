@@ -8,8 +8,7 @@ const MongoClient = require('mongodb').MongoClient;
 const app = express();
 const port = 3000;
 const MONGODB_URI = 'mongodb://localhost:27017';
-const DB_NAME = 'weather'; // Replace with your actual MongoDB database name
-
+const DB_NAME = 'weather';
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
